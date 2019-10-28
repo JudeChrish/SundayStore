@@ -1,0 +1,14 @@
+﻿@model Store_UI.Models.ProductListViewModel
+
+@{
+    ViewBag.Title = "Albums";
+}
+<h2>Albums</h2>
+
+@foreach (var albm in Model.ShowingAlbums)
+{
+    @Html.Partial("AlbumDetails", albm);
+}
+
+
+

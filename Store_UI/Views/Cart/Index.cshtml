@@ -1,0 +1,51 @@
+﻿@model Store_UI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "Shopping Store: Your Cart";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.cart.GetAllItems())
+        {
+            <tr>
+                <td class="text-left">
+                    @*@(line.album.AlbumDescription.Length > 50 ? line.album.AlbumDescription.Substring(0, 50) : line.album.AlbumDescription))*@
+                    @line.album.AlbumName
+                </td>
+                @*<td class="text-center">@line.album.AlbumDescription</td>*@
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-right">@line.album.AlbumPrice</td>
+                <td class="text-right">@((line.album.AlbumPrice * @line.Quantity).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("AlbumId", line.album.AlbumId)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Remove" />
+                    }
+
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">@Model.cart.ComputeTotalValue().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUlr">Continue shopping </a>
+</div>
