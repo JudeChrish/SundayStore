@@ -43,6 +43,12 @@ namespace Store_UI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
+        public ViewResult Checkout(Cart cart)
+        {
+            cart.ClearTheCart();
+            return View();
+        }
+
         public ViewResult Index(Cart cart, string ReturnUrl)
         {
             
